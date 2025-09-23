@@ -35,6 +35,13 @@ public class UsuarioCuentaStreamingService {
         CuentaStreaming cuenta = cuentaRepository.findById(relacion.getCuentaStreamingId())
                 .orElseThrow(() -> new RuntimeException("CuentaStreaming no encontrada"));
 
+        // Validar si ya existe la relación
+        usuarioCuentaStreamingRepository
+                .findOneByUsuario_IdAndCuentaStreaming_IdCuenta(usuario.getId(), cuenta.getIdCuenta())
+                .ifPresent(relacionExistente -> {
+                    throw new RuntimeException("El usuario ya está vinculado a esta cuenta de streaming");
+                });
+
         // Validar la regla de máximo 4 usuarios
         List<UsuarioCuentaStreaming> actuales =
                 usuarioCuentaStreamingRepository.findByCuentaStreamingIdCuenta(cuenta.getIdCuenta());

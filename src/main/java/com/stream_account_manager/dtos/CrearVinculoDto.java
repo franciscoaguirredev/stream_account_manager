@@ -13,7 +13,6 @@ public class CrearVinculoDto {
    @Min(1)
     private Long usuarioId;
 
-
     @Min(1)
     private Long cuentaStreamingId;
 
