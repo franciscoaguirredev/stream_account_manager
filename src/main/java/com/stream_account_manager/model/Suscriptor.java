@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "suscriptores")
-public class Suscriptor {
+public class Suscriptor extends Plataforma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
