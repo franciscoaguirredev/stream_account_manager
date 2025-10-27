@@ -44,8 +44,9 @@ public class Suscripcion {
     @OneToMany(mappedBy = "suscripcion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Pago> pagos;
 
-    // Constructor vacío (obligatorio para JPA)
-    public Suscripcion(LocalDate fechaInicio, LocalDate fechaFin, String estado, Suscriptor suscriptor, Plataforma plataforma) {}
+
+
+    public Suscripcion(LocalDate fechaInicio, LocalDate fechaFin, String estado, Double montoMensual, Suscriptor suscriptor, Plataforma plataforma) {}
 
     // Constructor con todos los campos necesarios
     public Suscripcion(LocalDate fechaInicio, LocalDate fechaFin, String estado,
@@ -58,7 +59,6 @@ public class Suscripcion {
         this.plataforma = plataforma;
         this.perfil = perfil;
     }
-
     // Getters y Setters
 
     public Long getIdSuscripcion() {

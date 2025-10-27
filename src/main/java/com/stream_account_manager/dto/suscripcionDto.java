@@ -12,6 +12,7 @@ public class suscripcionDto{
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private String estado;
+    private Double montoMensual; // opcional
     private Long idSuscriptor;
     private Long idPlataforma;
 
@@ -76,5 +77,13 @@ public class suscripcionDto{
 
     public void setIdPlataforma(Long idPlataforma) {
         this.idPlataforma = idPlataforma;
+    }
+
+    public Double getMontoMensual() {
+        return montoMensual;
+    }
+
+    public void setMontoMensual(Double montoMensual) {
+        this.montoMensual = montoMensual;
     }
 }
