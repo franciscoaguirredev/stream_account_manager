@@ -74,6 +74,7 @@ streaming-account-manager/
 │   │   │   ├── model/           # Entidades JPA (Usuario, CuentaStreaming, etc.)
 │   │   │   ├── repository/      # Interfaces de repositorio JPA
 │   │   │   └── service/         # Lógica de negocio
+|   |   |   └── mapper/          # Convertidor de datos
 │   │   └── resources/
 │   │       ├── application.properties   # Configuración de la BD
 │   │       └── data.sql / schema.sql    # (Opcional) scripts iniciales
