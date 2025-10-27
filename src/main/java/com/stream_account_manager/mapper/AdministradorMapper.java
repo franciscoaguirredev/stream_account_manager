@@ -14,6 +14,7 @@ public class AdministradorMapper {
                 admin.getIdAdministrador(),
                 admin.getNombre(),
                 admin.getCorreo(),
+                admin.getContrasena(),
                 admin.getRol()
         );
     }
@@ -27,6 +28,7 @@ public class AdministradorMapper {
         admin.setIdAdministrador(dto.getIdAdministrador());
         admin.setNombre(dto.getNombre());
         admin.setCorreo(dto.getCorreo());
+        admin.setContrasena(dto.getContrasena());
         admin.setRol(dto.getRol());
         return admin;
     }

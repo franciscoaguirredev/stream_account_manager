@@ -12,7 +12,7 @@ public class Administrador {
 
     private String nombre;
     private String correo;
-    private String contraseña;
+    private String contrasena;
     private String rol;
 
     // Relaciones
@@ -27,10 +27,10 @@ public class Administrador {
 
     public Administrador() {}
 
-    public Administrador(String nombre, String correo, String contraseña, String rol) {
+    public Administrador(String nombre, String correo, String contrasena, String rol) {
         this.nombre = nombre;
         this.correo = correo;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.rol = rol;
     }
 
@@ -44,9 +44,11 @@ public class Administrador {
     public String getCorreo() { return correo; }
     public void setCorreo(String correo) { this.correo = correo; }
 
-    public String getContraseña() { return contraseña; }
-    public void setContraseña(String contraseña) { this.contraseña = contraseña; }
+    public String getContrasena() { return contrasena; }
+    public void setContrasena(String contrasena) { this.contrasena = contrasena; }
 
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
+
+
 }
