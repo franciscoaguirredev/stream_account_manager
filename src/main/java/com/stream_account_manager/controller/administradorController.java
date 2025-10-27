@@ -10,27 +10,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/api/administradores")
-@CrossOrigin(origins = "*") // Permite llamadas desde el frontend (React, Angular, etc.)
+@CrossOrigin(origins = "*")
 public class administradorController {
 
     @Autowired
     private IAdministradorService administradorService;
 
-    // Crear un nuevo administrador
     @PostMapping
     public ResponseEntity<AdministradorDTO> crearAdministrador(@RequestBody AdministradorDTO dto) {
         AdministradorDTO nuevo = administradorService.crearAdministrador(dto);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
 
-    // Listar todos los administradores
     @GetMapping
     public ResponseEntity<List<AdministradorDTO>> listarAdministradores() {
         List<AdministradorDTO> lista = administradorService.listarAdministradores();
         return ResponseEntity.ok(lista);
     }
 
-    // Obtener un administrador por ID
     @GetMapping("/{id}")
     public ResponseEntity<AdministradorDTO> obtenerPorId(@PathVariable Long id) {
         AdministradorDTO admin = administradorService.buscarPorId(id);
@@ -41,7 +38,6 @@ public class administradorController {
         }
     }
 
-    // Actualizar un administrador existente
     @PutMapping("/{id}")
     public ResponseEntity<AdministradorDTO> actualizarAdministrador(
             @PathVariable Long id,
@@ -55,7 +51,6 @@ public class administradorController {
         }
     }
 
-    // Eliminar un administrador
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarAdministrador(@PathVariable Long id) {
         boolean eliminado = administradorService.eliminarAdministrador(id);
