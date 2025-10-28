@@ -1,40 +1,35 @@
+// src/main/java/com/stream_account_manager/model/Suscriptor.java
 package com.stream_account_manager.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "suscriptores")
-public class Suscriptor extends Plataforma {
+@Table(name = "suscriptor")
+public class Suscriptor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_suscriptor")
     private Long idSuscriptor;
 
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @Column(name = "correo", nullable = false, unique = true)
     private String correo;
-    private String telefono;
-    private String estado;
-    private LocalDate fechaRegistro;
 
-    @ManyToOne
-    @JoinColumn(name = "id_administrador")
-    private Administrador administrador;
+    // Relación con Perfiles (opcional, según tu MER)
+    @OneToMany(mappedBy = "suscriptor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Perfil> perfiles;
 
-    @OneToMany(mappedBy = "suscriptor", cascade = CascadeType.ALL)
-    private List<Suscripcion> suscripciones;
-
+    // Constructor vacío (obligatorio para JPA)
     public Suscriptor() {}
 
-    public Suscriptor(String nombre, String correo, String telefono, String estado,
-                      LocalDate fechaRegistro, Administrador administrador) {
+    // Constructor con campos
+    public Suscriptor(String nombre, String correo) {
         this.nombre = nombre;
         this.correo = correo;
-        this.telefono = telefono;
-        this.estado = estado;
-        this.fechaRegistro = fechaRegistro;
-        this.administrador = administrador;
     }
 
     // Getters y Setters
@@ -47,16 +42,6 @@ public class Suscriptor extends Plataforma {
     public String getCorreo() { return correo; }
     public void setCorreo(String correo) { this.correo = correo; }
 
-    public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
-
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
-
-    public LocalDate getFechaRegistro() { return fechaRegistro; }
-    public void setFechaRegistro(LocalDate fechaRegistro) { this.fechaRegistro = fechaRegistro; }
-
-    public Administrador getAdministrador() { return administrador; }
-    public void setAdministrador(Administrador administrador) { this.administrador = administrador; }
+    public List<Perfil> getPerfiles() { return perfiles; }
+    public void setPerfiles(List<Perfil> perfiles) { this.perfiles = perfiles; }
 }
-
