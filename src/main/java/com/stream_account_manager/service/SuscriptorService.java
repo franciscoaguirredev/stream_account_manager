@@ -2,6 +2,7 @@
 package com.stream_account_manager.service;
 
 import com.stream_account_manager.dto.SuscriptorDTO;
+import com.stream_account_manager.mapper.SuscriptorMapper;
 import com.stream_account_manager.model.Suscriptor;
 import com.stream_account_manager.repository.SuscriptorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,15 @@ public class SuscriptorService {
     // CREATE
     @Transactional
     public SuscriptorDTO crearSuscriptor(SuscriptorDTO dto) {
-        Suscriptor suscriptor = new Suscriptor(dto.getNombre(), dto.getCorreo());
+        Suscriptor suscriptor = SuscriptorMapper.toEntity(dto);
         Suscriptor guardado = suscriptorRepository.save(suscriptor);
-        return convertirADTO(guardado);
+        return SuscriptorMapper.toDTO(guardado);
     }
 
     // READ ALL
     public List<SuscriptorDTO> listarTodos() {
         return suscriptorRepository.findAll().stream()
-                .map(this::convertirADTO)
+                .map(SuscriptorMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -36,7 +37,7 @@ public class SuscriptorService {
     public SuscriptorDTO obtenerPorId(Long id) {
         Suscriptor suscriptor = suscriptorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Suscriptor no encontrado con ID: " + id));
-        return convertirADTO(suscriptor);
+        return SuscriptorMapper.toDTO(suscriptor);
     }
 
     // UPDATE
@@ -45,11 +46,12 @@ public class SuscriptorService {
         Suscriptor suscriptor = suscriptorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Suscriptor no encontrado con ID: " + id));
 
-        suscriptor.setNombre(dto.getNombre());
-        suscriptor.setCorreo(dto.getCorreo());
+        Suscriptor updated = SuscriptorMapper.toEntity(dto);
+        suscriptor.setNombre(updated.getNombre());
+        suscriptor.setCorreo(updated.getCorreo());
 
         Suscriptor guardado = suscriptorRepository.save(suscriptor);
-        return convertirADTO(guardado);
+        return SuscriptorMapper.toDTO(guardado);
     }
 
     // DELETE
@@ -59,14 +61,5 @@ public class SuscriptorService {
             throw new RuntimeException("Suscriptor no encontrado con ID: " + id);
         }
         suscriptorRepository.deleteById(id);
-    }
-
-    // Helper: Entidad → DTO
-    private SuscriptorDTO convertirADTO(Suscriptor suscriptor) {
-        return new SuscriptorDTO(
-                suscriptor.getIdSuscriptor(),
-                suscriptor.getNombre(),
-                suscriptor.getCorreo()
-        );
     }
 }

@@ -2,6 +2,7 @@
 package com.stream_account_manager.service;
 
 import com.stream_account_manager.dto.PagoDTO;
+import com.stream_account_manager.mapper.PagoMapper;
 import com.stream_account_manager.model.Pago;
 import com.stream_account_manager.model.Suscripcion;
 import com.stream_account_manager.repository.PagoRepository;
@@ -28,21 +29,17 @@ public class PagoService {
         Suscripcion suscripcion = suscripcionRepository.findById(dto.getIdSuscripcion())
                 .orElseThrow(() -> new RuntimeException("Suscripción no encontrada con ID: " + dto.getIdSuscripcion()));
 
-        Pago pago = new Pago(
-                dto.getFechaPago(),
-                dto.getMontoPagado(),
-                dto.getMetodoPago(),
-                suscripcion
-        );
+        Pago pago = PagoMapper.toEntity(dto);
+        pago.setSuscripcion(suscripcion);
 
         Pago guardado = pagoRepository.save(pago);
-        return convertirADTO(guardado);
+        return PagoMapper.toDTO(guardado);
     }
 
     // READ ALL
     public List<PagoDTO> listarTodos() {
         return pagoRepository.findAll().stream()
-                .map(this::convertirADTO)
+                .map(PagoMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -50,7 +47,7 @@ public class PagoService {
     public PagoDTO obtenerPorId(Long id) {
         Pago pago = pagoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pago no encontrado con ID: " + id));
-        return convertirADTO(pago);
+        return PagoMapper.toDTO(pago);
     }
 
     // UPDATE
@@ -59,18 +56,19 @@ public class PagoService {
         Pago pago = pagoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pago no encontrado con ID: " + id));
 
-        pago.setFechaPago(dto.getFechaPago());
-        pago.setMontoPagado(dto.getMontoPagado());
-        pago.setMetodoPago(dto.getMetodoPago());
+        Pago updated = PagoMapper.toEntity(dto);
+        pago.setFechaPago(updated.getFechaPago());
+        pago.setMontoPagado(updated.getMontoPagado());
+        pago.setMetodoPago(updated.getMetodoPago());
 
         if (dto.getIdSuscripcion() != null) {
             Suscripcion suscripcion = suscripcionRepository.findById(dto.getIdSuscripcion())
-                    .orElseThrow(() -> new RuntimeException("Suscripción no encontrada con ID: " + dto.getIdSuscripcion()));
+                    .orElseThrow(() -> new RuntimeException("Suscripción no encontrada"));
             pago.setSuscripcion(suscripcion);
         }
 
         Pago guardado = pagoRepository.save(pago);
-        return convertirADTO(guardado);
+        return PagoMapper.toDTO(guardado);
     }
 
     // DELETE
@@ -80,16 +78,5 @@ public class PagoService {
             throw new RuntimeException("Pago no encontrado con ID: " + id);
         }
         pagoRepository.deleteById(id);
-    }
-
-    // Helper: Entidad → DTO
-    private PagoDTO convertirADTO(Pago pago) {
-        return new PagoDTO(
-                pago.getIdPago(),
-                pago.getFechaPago(),
-                pago.getMontoPagado(),
-                pago.getMetodoPago(),
-                pago.getSuscripcion().getIdSuscripcion()
-        );
     }
 }

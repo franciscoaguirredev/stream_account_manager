@@ -46,7 +46,7 @@ public class Suscripcion {
 
 
 
-    public Suscripcion(LocalDate fechaInicio, LocalDate fechaFin, String estado, Double montoMensual, Suscriptor suscriptor, Plataforma plataforma) {}
+    public Suscripcion() {}
 
     // Constructor con todos los campos necesarios
     public Suscripcion(LocalDate fechaInicio, LocalDate fechaFin, String estado,
