@@ -4,35 +4,37 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "pagos")
+@Table(name = "pago")
 public class Pago {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pago")
     private Long idPago;
 
+    @Column(name = "fecha_pago", nullable = false)
     private LocalDate fechaPago;
-    private Double monto;
-    private String metodoPago;
-    private String referencia;
 
-    @ManyToOne
-    @JoinColumn(name = "id_suscripcion")
+    @Column(name = "monto_pagado", nullable = false)
+    private Double montoPagado;
+
+    @Column(name = "metodo_pago", length = 50)
+    private String metodoPago;
+
+    // Relación con Suscripción
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_suscripcion", nullable = false)
     private Suscripcion suscripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "id_administrador")
-    private Administrador administrador;
-
+    // Constructor vacío (obligatorio para JPA)
     public Pago() {}
 
-    public Pago(LocalDate fechaPago, Double monto, String metodoPago, String referencia,
-                Suscripcion suscripcion, Administrador administrador) {
+    // Constructor con campos
+    public Pago(LocalDate fechaPago, Double montoPagado, String metodoPago, Suscripcion suscripcion) {
         this.fechaPago = fechaPago;
-        this.monto = monto;
+        this.montoPagado = montoPagado;
         this.metodoPago = metodoPago;
-        this.referencia = referencia;
         this.suscripcion = suscripcion;
-        this.administrador = administrador;
     }
 
     // Getters y Setters
@@ -42,19 +44,12 @@ public class Pago {
     public LocalDate getFechaPago() { return fechaPago; }
     public void setFechaPago(LocalDate fechaPago) { this.fechaPago = fechaPago; }
 
-    public Double getMonto() { return monto; }
-    public void setMonto(Double monto) { this.monto = monto; }
+    public Double getMontoPagado() { return montoPagado; }
+    public void setMontoPagado(Double montoPagado) { this.montoPagado = montoPagado; }
 
     public String getMetodoPago() { return metodoPago; }
     public void setMetodoPago(String metodoPago) { this.metodoPago = metodoPago; }
 
-    public String getReferencia() { return referencia; }
-    public void setReferencia(String referencia) { this.referencia = referencia; }
-
     public Suscripcion getSuscripcion() { return suscripcion; }
     public void setSuscripcion(Suscripcion suscripcion) { this.suscripcion = suscripcion; }
-
-    public Administrador getAdministrador() { return administrador; }
-    public void setAdministrador(Administrador administrador) { this.administrador = administrador; }
-
 }
