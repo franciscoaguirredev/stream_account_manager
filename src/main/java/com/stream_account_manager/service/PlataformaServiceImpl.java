@@ -4,7 +4,6 @@ import com.stream_account_manager.dto.PlataformaDTO;
 import com.stream_account_manager.mapper.PlataformaMapper;
 import com.stream_account_manager.model.Plataforma;
 import com.stream_account_manager.repository.PlataformaRepository;
-import com.stream_account_manager.service.IPlataformaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PlataformaServiceImpl implements IPlataformaService{
+public class PlataformaServiceImpl implements IPlataformaService {
 
     @Autowired
     private PlataformaRepository plataformaRepository;
