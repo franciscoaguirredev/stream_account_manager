@@ -6,9 +6,10 @@ import com.stream_account_manager.mapper.SuscripcionMapper;
 import com.stream_account_manager.model.Suscripcion;
 import com.stream_account_manager.model.Suscriptor;
 import com.stream_account_manager.model.Plataforma;
+import com.stream_account_manager.repository.PlataformaRepository;
 import com.stream_account_manager.repository.SuscripcionRepository;
 import com.stream_account_manager.repository.SuscriptorRepository;
-import com.stream_account_manager.repository.plataformaRepository;
+import com.stream_account_manager.repository.PlataformaRepository ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ public class SuscripcionService {
     private SuscriptorRepository suscriptorRepository;
 
     @Autowired
-    private plataformaRepository plataformaRepository;
+    private PlataformaRepository plataformaRepository;
 
     // CREATE
     @Transactional
