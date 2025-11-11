@@ -2,6 +2,7 @@ package com.stream_account_manager.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ public class Cuenta {
     private Long idCuenta;
 
     private String correoCuenta;
-    private String contraseñaCuenta;
+    private String contrasenaCuenta;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private String estado;
@@ -27,14 +28,15 @@ public class Cuenta {
     private Administrador administrador;
 
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL)
-    private List<Perfil> perfiles;
+    private List<Perfil> perfiles = new ArrayList<>();
 
+    // Constructores
     public Cuenta() {}
 
-    public Cuenta(String correoCuenta, String contraseñaCuenta, LocalDate fechaInicio,
+    public Cuenta(String correoCuenta, String contrasenaCuenta, LocalDate fechaInicio,
                   LocalDate fechaFin, String estado, Plataforma plataforma, Administrador administrador) {
         this.correoCuenta = correoCuenta;
-        this.contraseñaCuenta = contraseñaCuenta;
+        this.contrasenaCuenta = contrasenaCuenta;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estado = estado;
@@ -43,28 +45,76 @@ public class Cuenta {
     }
 
     // Getters y Setters
-    public Long getIdCuenta() { return idCuenta; }
-    public void setIdCuenta(Long idCuenta) { this.idCuenta = idCuenta; }
+    public Long getIdCuenta() { 
+        return idCuenta; 
+    }
+    
+    public void setIdCuenta(Long idCuenta) { 
+        this.idCuenta = idCuenta; 
+    }
 
-    public String getCorreoCuenta() { return correoCuenta; }
-    public void setCorreoCuenta(String correoCuenta) { this.correoCuenta = correoCuenta; }
+    public String getCorreoCuenta() { 
+        return correoCuenta; 
+    }
+    
+    public void setCorreoCuenta(String correoCuenta) { 
+        this.correoCuenta = correoCuenta; 
+    }
 
-    public String getContraseñaCuenta() { return contraseñaCuenta; }
-    public void setContraseñaCuenta(String contraseñaCuenta) { this.contraseñaCuenta = contraseñaCuenta; }
+    public String getContrasenaCuenta() { 
+        return contrasenaCuenta; 
+    }
+    
+    public void setContrasenaCuenta(String contrasenaCuenta) { 
+        this.contrasenaCuenta = contrasenaCuenta; 
+    }
 
-    public LocalDate getFechaInicio() { return fechaInicio; }
-    public void setFechaInicio(LocalDate fechaInicio) { this.fechaInicio = fechaInicio; }
+    public LocalDate getFechaInicio() { 
+        return fechaInicio; 
+    }
+    
+    public void setFechaInicio(LocalDate fechaInicio) { 
+        this.fechaInicio = fechaInicio; 
+    }
 
-    public LocalDate getFechaFin() { return fechaFin; }
-    public void setFechaFin(LocalDate fechaFin) { this.fechaFin = fechaFin; }
+    public LocalDate getFechaFin() { 
+        return fechaFin; 
+    }
+    
+    public void setFechaFin(LocalDate fechaFin) { 
+        this.fechaFin = fechaFin; 
+    }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public String getEstado() { 
+        return estado; 
+    }
+    
+    public void setEstado(String estado) { 
+        this.estado = estado; 
+    }
 
-    public Plataforma getPlataforma() { return plataforma; }
-    public void setPlataforma(Plataforma plataforma) { this.plataforma = plataforma; }
+    public Plataforma getPlataforma() { 
+        return plataforma; 
+    }
+    
+    public void setPlataforma(Plataforma plataforma) { 
+        this.plataforma = plataforma; 
+    }
 
-    public Administrador getAdministrador() { return administrador; }
-    public void setAdministrador(Administrador administrador) { this.administrador = administrador; }
+    public Administrador getAdministrador() { 
+        return administrador; 
+    }
+    
+    public void setAdministrador(Administrador administrador) { 
+        this.administrador = administrador; 
+    }
 
+    // ESTOS SON LOS GETTERS Y SETTERS QUE FALTABAN
+    public List<Perfil> getPerfiles() { 
+        return perfiles; 
+    }
+    
+    public void setPerfiles(List<Perfil> perfiles) { 
+        this.perfiles = perfiles; 
+    }
 }

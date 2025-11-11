@@ -1,9 +1,11 @@
 package com.stream_account_manager.model;
 
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "perfiles")
 public class Perfil {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPerfil;
@@ -15,6 +17,11 @@ public class Perfil {
     @ManyToOne
     @JoinColumn(name = "id_cuenta")
     private Cuenta cuenta;
+
+    // ESTA RELACIÓN ES LA QUE FALTABA
+    @ManyToOne
+    @JoinColumn(name = "id_suscriptor")   // FK en tabla perfiles
+    private Suscriptor suscriptor;
 
     @OneToOne(mappedBy = "perfil", cascade = CascadeType.ALL)
     private Suscripcion suscripcion;
@@ -28,7 +35,8 @@ public class Perfil {
         this.cuenta = cuenta;
     }
 
-    // Getters y Setters
+    // getters y setters
+
     public Long getIdPerfil() { return idPerfil; }
     public void setIdPerfil(Long idPerfil) { this.idPerfil = idPerfil; }
 
@@ -43,4 +51,7 @@ public class Perfil {
 
     public Cuenta getCuenta() { return cuenta; }
     public void setCuenta(Cuenta cuenta) { this.cuenta = cuenta; }
+
+    public Suscriptor getSuscriptor() { return suscriptor; }
+    public void setSuscriptor(Suscriptor suscriptor) { this.suscriptor = suscriptor; }
 }
