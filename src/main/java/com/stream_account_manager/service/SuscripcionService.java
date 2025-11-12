@@ -1,7 +1,7 @@
 // src/main/java/com/stream_account_manager/service/SuscripcionService.java
 package com.stream_account_manager.service;
 
-import com.stream_account_manager.dto.suscripcionDto;
+import com.stream_account_manager.dto.SuscripcionDTO;
 import com.stream_account_manager.mapper.SuscripcionMapper;
 import com.stream_account_manager.model.Suscripcion;
 import com.stream_account_manager.model.Suscriptor;
@@ -31,7 +31,7 @@ public class SuscripcionService {
 
     // CREATE
     @Transactional
-    public suscripcionDto crearSuscripcion(suscripcionDto dto) {
+    public SuscripcionDTO crearSuscripcion(SuscripcionDTO dto) {
         Suscriptor suscriptor = suscriptorRepository.findById(dto.getIdSuscriptor())
                 .orElseThrow(() -> new RuntimeException("Suscriptor no encontrado con ID: " + dto.getIdSuscriptor()));
         Plataforma plataforma = plataformaRepository.findById(dto.getIdPlataforma())
@@ -46,14 +46,14 @@ public class SuscripcionService {
     }
 
     // READ ALL
-    public List<suscripcionDto> listarTodas() {
+    public List<SuscripcionDTO> listarTodas() {
         return suscripcionRepository.findAll().stream()
                 .map(SuscripcionMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     // READ BY ID
-    public suscripcionDto obtenerPorId(Long id) {
+    public SuscripcionDTO obtenerPorId(Long id) {
         Suscripcion suscripcion = suscripcionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Suscripción no encontrada con ID: " + id));
         return SuscripcionMapper.toDto(suscripcion);
@@ -61,7 +61,7 @@ public class SuscripcionService {
 
     // UPDATE
     @Transactional
-    public suscripcionDto actualizarSuscripcion(Long id, suscripcionDto dto) {
+    public SuscripcionDTO actualizarSuscripcion(Long id, SuscripcionDTO dto) {
         Suscripcion suscripcion = suscripcionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Suscripción no encontrada con ID: " + id));
 

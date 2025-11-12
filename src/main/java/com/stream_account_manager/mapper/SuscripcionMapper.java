@@ -1,7 +1,7 @@
 // src/main/java/com/stream_account_manager/mapper/SuscripcionMapper.java
 package com.stream_account_manager.mapper;
 
-import com.stream_account_manager.dto.suscripcionDto;
+import com.stream_account_manager.dto.SuscripcionDTO;
 import com.stream_account_manager.model.Suscripcion;
 import com.stream_account_manager.model.Suscriptor;
 import com.stream_account_manager.model.Plataforma;
@@ -9,12 +9,12 @@ import com.stream_account_manager.model.Plataforma;
 public class SuscripcionMapper {
 
     // Convierte entidad a DTO
-    public static suscripcionDto toDto(Suscripcion suscripcion) {
+    public static SuscripcionDTO toDto(Suscripcion suscripcion) {
         if (suscripcion == null) {
             return null;
         }
 
-        return new suscripcionDto(
+        return new SuscripcionDTO(
                 suscripcion.getIdSuscripcion(),
                 suscripcion.getFechaInicio(),
                 suscripcion.getFechaFin(),
@@ -25,7 +25,7 @@ public class SuscripcionMapper {
     }
 
     // Convierte DTO a entidad
-    public static Suscripcion toEntity(suscripcionDto dto) {
+    public static Suscripcion toEntity(SuscripcionDTO dto) {
         if (dto == null) {
             return null;
         }

@@ -6,28 +6,28 @@ import com.stream_account_manager.model.Suscriptor;
 
 import java.time.LocalDate;
 
-public class suscripcionDto{
+public class SuscripcionDTO {
 
     private Long idSuscripcion;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private String estado;
-    private Double montoMensual; // opcional
+    private Double montoMensual;
     private Long idSuscriptor;
     private Long idPlataforma;
 
-    public suscripcionDto(){}
-
-    // Constructor vacío (obligatorio para frameworks como Jackson)
-    public suscripcionDto(Long idSuscripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, Suscriptor suscriptor, Plataforma plataforma) {}
+    // Constructor vacío (obligatorio para Jackson)
+    public SuscripcionDTO(){}
+    public SuscripcionDTO(Long idSuscripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, Suscriptor suscriptor, Plataforma plataforma) {}
 
     // Constructor con todos los campos
-    public suscripcionDto(Long idSuscripcion, LocalDate fechaInicio, LocalDate fechaFin,
-                          String estado, Long idSuscriptor, Long idPlataforma) {
+    public SuscripcionDTO(Long idSuscripcion, LocalDate fechaInicio, LocalDate fechaFin,
+                          String estado, Double montoMensual, Long idSuscriptor, Long idPlataforma) {
         this.idSuscripcion = idSuscripcion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estado = estado;
+        this.montoMensual = montoMensual;
         this.idSuscriptor = idSuscriptor;
         this.idPlataforma = idPlataforma;
     }
@@ -65,6 +65,14 @@ public class suscripcionDto{
         this.estado = estado;
     }
 
+    public Double getMontoMensual() {
+        return montoMensual;
+    }
+
+    public void setMontoMensual(Double montoMensual) {
+        this.montoMensual = montoMensual;
+    }
+
     public Long getIdSuscriptor() {
         return idSuscriptor;
     }
@@ -79,13 +87,5 @@ public class suscripcionDto{
 
     public void setIdPlataforma(Long idPlataforma) {
         this.idPlataforma = idPlataforma;
-    }
-
-    public Double getMontoMensual() {
-        return montoMensual;
-    }
-
-    public void setMontoMensual(Double montoMensual) {
-        this.montoMensual = montoMensual;
     }
 }
