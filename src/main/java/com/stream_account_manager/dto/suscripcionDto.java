@@ -16,6 +16,8 @@ public class suscripcionDto{
     private Long idSuscriptor;
     private Long idPlataforma;
 
+    public suscripcionDto(){}
+
     // Constructor vacío (obligatorio para frameworks como Jackson)
     public suscripcionDto(Long idSuscripcion, LocalDate fechaInicio, LocalDate fechaFin, String estado, Suscriptor suscriptor, Plataforma plataforma) {}
 
