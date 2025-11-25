@@ -1,8 +1,8 @@
-// src/main/java/com/stream_account_manager/controller/SuscripcionController.java
 package com.stream_account_manager.controller;
 
 import com.stream_account_manager.dto.SuscripcionDTO;
 import com.stream_account_manager.service.SuscripcionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Suscripciones", description = "Gestión de suscripciones activas")
 @RestController
 @RequestMapping("/api/v1/suscripciones")
 public class SuscripcionController {

@@ -3,6 +3,7 @@ package com.stream_account_manager.controller;
 
 import com.stream_account_manager.dto.SuscriptorDTO;
 import com.stream_account_manager.service.SuscriptorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Suscriptores", description = "Gestión de suscriptores del sistema")
 @RestController
 @RequestMapping("/api/v1/suscriptores")
 public class SuscriptorController {
