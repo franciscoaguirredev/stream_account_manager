@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Stream Account Manager</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🎬 Stream Manager</h2>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Dashboard</span>
+            </a>
+            
+            <a href="plataformas/lista.html" class="nav-item">
+                <span class="nav-icon">🎮</span>
+                <span class="nav-text">Plataformas</span>
+            </a>
+            
+            <a href="cuentas/lista.html" class="nav-item">
+                <span class="nav-icon">💳</span>
+                <span class="nav-text">Cuentas</span>
+            </a>
+            
+            <a href="perfiles/lista.html" class="nav-item">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Perfiles</span>
+            </a>
+            
+            <a href="suscriptores/lista.html" class="nav-item">
+                <span class="nav-icon">👥</span>
+                <span class="nav-text">Suscriptores</span>
+            </a>
+            
+            <a href="pagos/lista.html" class="nav-item">
+                <span class="nav-icon">💰</span>
+                <span class="nav-text">Pagos</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="handleLogout()">
+                <span>🚪</span> Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h1>Dashboard</h1>
+            <div class="user-info">
+                <span id="userName">Administrador</span>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #3b82f6;">📊</div>
+                <div class="stat-info">
+                    <h3 id="totalPlataformas">0</h3>
+                    <p>Plataformas</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #10b981;">💳</div>
+                <div class="stat-info">
+                    <h3 id="totalCuentas">0</h3>
+                    <p>Cuentas Activas</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #f59e0b;">👤</div>
+                <div class="stat-info">
+                    <h3 id="totalPerfiles">0</h3>
+                    <p>Perfiles</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #ef4444;">👥</div>
+                <div class="stat-info">
+                    <h3 id="totalSuscriptores">0</h3>
+                    <p>Suscriptores</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2>Plataformas Disponibles</h2>
+                <a href="plataformas/crear.html" class="btn btn-primary">
+                    + Nueva Plataforma
+                </a>
+            </div>
+            <div id="plataformasContainer" class="cards-grid">
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2>Cuentas Recientes</h2>
+                <a href="cuentas/lista.html" class="btn btn-secondary">
+                    Ver todas
+                </a>
+            </div>
+            <div id="cuentasContainer" class="table-container">
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/config/api-config.js"></script>
+    <script src="../js/utils/helpers.js"></script>
+    <script src="../js/utils/validation.js"></script>
+    <script src="../js/utils/notifications.js"></script>
+    <script src="../js/services/auth-service.js"></script>
+    <script src="../js/services/plataforma-service.js"></script>
+    <script src="../js/services/cuenta-service.js"></script>
+    <script src="../js/services/perfil-service.js"></script>
+    <script src="../js/controllers/dashboard-controller.js"></script>
+</body>
+</html>

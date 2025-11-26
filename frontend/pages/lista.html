@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataformas - Stream Account Manager</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/forms.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🎬 Stream Manager</h2>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="../dashboard.html" class="nav-item">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Dashboard</span>
+            </a>
+            
+            <a href="lista.html" class="nav-item active">
+                <span class="nav-icon">🎮</span>
+                <span class="nav-text">Plataformas</span>
+            </a>
+            
+            <a href="../cuentas/lista.html" class="nav-item">
+                <span class="nav-icon">💳</span>
+                <span class="nav-text">Cuentas</span>
+            </a>
+            
+            <a href="../perfiles/lista.html" class="nav-item">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Perfiles</span>
+            </a>
+            
+            <a href="../suscriptores/lista.html" class="nav-item">
+                <span class="nav-icon">👥</span>
+                <span class="nav-text">Suscriptores</span>
+            </a>
+            
+            <a href="../pagos/lista.html" class="nav-item">
+                <span class="nav-icon">💰</span>
+                <span class="nav-text">Pagos</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="handleLogout()">
+                <span>🚪</span> Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <div>
+                <h1>Plataformas de Streaming</h1>
+                <p style="color: #6b7280; margin-top: 8px;">Gestiona las plataformas disponibles</p>
+            </div>
+            <a href="crear.html" class="btn btn-primary">
+                + Nueva Plataforma
+            </a>
+        </header>
+
+        <div class="search-bar">
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Buscar plataformas..."
+                class="search-input"
+            >
+        </div>
+
+        <section class="dashboard-section">
+            <div id="plataformasGrid" class="cards-grid">
+            </div>
+        </section>
+    </main>
+
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Plataforma</h2>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                
+                <div class="form-group">
+                    <label for="editNombre">Nombre</label>
+                    <input type="text" id="editNombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editUrl">URL Oficial</label>
+                    <input type="url" id="editUrl" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editEstado">Estado</label>
+                    <select id="editEstado" required>
+                        <option value="ACTIVO">Activo</option>
+                        <option value="INACTIVO">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../js/config/api-config.js"></script>
+    <script src="../../js/utils/helpers.js"></script>
+    <script src="../../js/utils/validation.js"></script>
+    <script src="../../js/utils/notifications.js"></script>
+    <script src="../../js/services/auth-service.js"></script>
+    <script src="../../js/services/plataforma-service.js"></script>
+    <script src="../../js/controllers/plataforma-controller.js"></script>
+</body>
+</html>

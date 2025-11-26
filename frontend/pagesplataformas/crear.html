@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Plataforma - Stream Account Manager</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/forms.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🎬 Stream Manager</h2>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="../dashboard.html" class="nav-item">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Dashboard</span>
+            </a>
+            
+            <a href="lista.html" class="nav-item active">
+                <span class="nav-icon">🎮</span>
+                <span class="nav-text">Plataformas</span>
+            </a>
+            
+            <a href="../cuentas/lista.html" class="nav-item">
+                <span class="nav-icon">💳</span>
+                <span class="nav-text">Cuentas</span>
+            </a>
+            
+            <a href="../perfiles/lista.html" class="nav-item">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Perfiles</span>
+            </a>
+            
+            <a href="../suscriptores/lista.html" class="nav-item">
+                <span class="nav-icon">👥</span>
+                <span class="nav-text">Suscriptores</span>
+            </a>
+            
+            <a href="../pagos/lista.html" class="nav-item">
+                <span class="nav-icon">💰</span>
+                <span class="nav-text">Pagos</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="handleLogout()">
+                <span>🚪</span> Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <div>
+                <a href="lista.html" style="color: #6b7280; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    ← Volver a plataformas
+                </a>
+                <h1>Nueva Plataforma</h1>
+                <p style="color: #6b7280; margin-top: 8px;">Registra una nueva plataforma de streaming</p>
+            </div>
+        </header>
+
+        <section class="dashboard-section" style="max-width: 600px;">
+            <form id="createForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre de la Plataforma *</label>
+                    <input 
+                        type="text" 
+                        id="nombre" 
+                        name="nombre"
+                        placeholder="Ej: Netflix, Disney+, HBO Max"
+                        required
+                    >
+                    <span class="error-message" id="nombreError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="urlOficial">URL Oficial *</label>
+                    <input 
+                        type="url" 
+                        id="urlOficial" 
+                        name="urlOficial"
+                        placeholder="https://www.ejemplo.com"
+                        required
+                    >
+                    <span class="error-message" id="urlOficialError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado *</label>
+                    <select id="estado" name="estado" required>
+                        <option value="ACTIVO">Activo</option>
+                        <option value="INACTIVO">Inactivo</option>
+                    </select>
+                    <span class="error-message" id="estadoError"></span>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 32px;">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='lista.html'">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        Crear Plataforma
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="../../js/config/api-config.js"></script>
+    <script src="../../js/utils/helpers.js"></script>
+    <script src="../../js/utils/validation.js"></script>
+    <script src="../../js/utils/notifications.js"></script>
+    <script src="../../js/services/auth-service.js"></script>
+    <script src="../../js/services/plataforma-service.js"></script>
+    <script>
+        if (!authService.requireAuth()) {
+        }
+
+        document.getElementById('createForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const isValid = Validator.validateForm('createForm', {
+                nombre: {
+                    required: true,
+                    minLength: 2,
+                    maxLength: 100,
+                    requiredMessage: 'El nombre es requerido',
+                    minLengthMessage: 'El nombre debe tener al menos 2 caracteres',
+                    maxLengthMessage: 'El nombre no puede exceder 100 caracteres'
+                },
+                urlOficial: {
+                    required: true,
+                    requiredMessage: 'La URL es requerida',
+                    custom: (value) => {
+                        if (!Validator.isValidUrl(value)) {
+                            return 'Ingrese una URL válida';
+                        }
+                        return true;
+                    }
+                },
+                estado: {
+                    required: true,
+                    requiredMessage: 'El estado es requerido'
+                }
+            });
+
+            if (!isValid) {
+                return;
+            }
+
+            const data = {
+                nombre: document.getElementById('nombre').value.trim(),
+                urlOficial: document.getElementById('urlOficial').value.trim(),
+                estado: document.getElementById('estado').value
+            };
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Creando...';
+            Utils.showLoading(submitButton);
+
+            try {
+                await plataformaService.create(data);
+                
+                setTimeout(() => {
+                    window.location.href = 'lista.html';
+                }, 1500);
+
+            } catch (error) {
+                Utils.hideLoading(submitButton);
+                submitButton.textContent = originalText;
+            }
+        });
+
+        ['nombre', 'urlOficial', 'estado'].forEach(field => {
+            document.getElementById(field).addEventListener('input', function() {
+                Validator.clearError(field);
+            });
+        });
+
+        function handleLogout() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                authService.logout();
+            }
+        }
+    </script>
+</body>
+</html>
